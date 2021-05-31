@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5000;
-const {mongodb_uri} = require('./config/keys')
+const {MONGODB_URI} = require('./config/keys')
 
 require('./models/post');
 require('./models/user')
@@ -21,7 +21,7 @@ if(process.env.NODE_ENV=="production") {
 const mongoose = require('mongoose')
 
 
-mongoose.connect(mongodb_uri, {
+mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
