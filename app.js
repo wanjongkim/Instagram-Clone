@@ -20,7 +20,7 @@ if(process.env.NODE_ENV=="production") {
 
 
 const mongoose = require('mongoose')
-
+mongoose.set('useFindAndModify', false);
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,

@@ -4,9 +4,10 @@ import { useParams } from 'react-router-dom';
 
 const Profile = () => {
     const [userProfile, setProfile] = useState(null);
-    const [showfollow, setShowFollow] = useState(true);
     const {state, dispatch} = useContext(userContext);
     const {userid} = useParams();
+    const [showfollow, setShowFollow] = useState(state?!state.following.includes(userid):true);
+    
      useEffect(() => {
         fetch(`/user/${userid}`, {
             headers: {
@@ -61,7 +62,7 @@ const Profile = () => {
             localStorage.setItem("user", JSON.stringify(data));
             setProfile((prevState) => {
                 const newFollower = prevState.user.followers.filter(item=> {
-                    item !== data._id
+                    return item !== data._id
                 })
                 return {
                     ...prevState,
@@ -86,7 +87,7 @@ const Profile = () => {
             }}>
                 <div>
                     <img style={{width: "160px", height: "160px", borderRadius: "80px"}} 
-                    src="https://images.unsplash.com/photo-1494959764136-6be9eb3c261e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHBlcnNvbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" />
+                    src={userProfile.user.pic} />
                 </div>
                 <div>
                     <h4>{userProfile.user.name}</h4>
